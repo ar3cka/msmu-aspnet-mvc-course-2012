@@ -8,34 +8,25 @@ using MyTodo.Models;
 namespace MyTodo.Controllers {
 	public class TaskController : Controller {
 
-		private static int s_counter = 1;
-
-		private static List<Task> s_tasks = new List<Task> {
-            new Task { 
-                TaskId = 1, 
-                Title = "Зайти в магазин.", 
-                Description = "Купить хлеб и зубную пасту.", 
-                Completed = false  
-            }
-        };
-
+		TasksRepository m_tasks = new TasksRepository();
+	
 		//
 		// GET: /task
 		public ActionResult GetAll() {
-			return View(s_tasks.Where(t => !t.Completed));
+			return View(m_tasks.FindUncompletedTasks());
 		}
 
 		//
 		// GET /task/details
 		public ActionResult Details(int id) {
-			var task = s_tasks.Single(t => t.TaskId == id);
+			var task = m_tasks.FindTask(id);
 			return View(task);
 		}
 
 		//
 		// GET: /task/edit
 		public ActionResult Edit(int id) {
-			var task = s_tasks.Single(t => t.TaskId == id);
+			var task = m_tasks.FindTask(id);
 			return View(task);
 		}
 
@@ -43,11 +34,10 @@ namespace MyTodo.Controllers {
 		// POST: /task/edit
 		[HttpPost]
 		public ActionResult Edit(int id, Task updatedTask) {
-			var existingTask = s_tasks.Single(t => t.TaskId == id);
+			var existingTask = m_tasks.FindTask(id);
 			existingTask.Title = updatedTask.Title;
 			existingTask.Description = updatedTask.Description;
 			existingTask.Completed = updatedTask.Completed;
-
 			return RedirectToAction("GetAll");
 		}
 
@@ -61,23 +51,21 @@ namespace MyTodo.Controllers {
 		// POST: /task/create
 		[HttpPost]
 		public ActionResult Create(Task task) {
-			task.TaskId = ++s_counter;
-			s_tasks.Add(task);
+			m_tasks.AddTask(task);
 			return RedirectToAction("GetAll");
 		}
 
 		//
 		// GET: /task/delete
 		public ActionResult Delete(int id) {
-			return View(s_tasks.Single(t => t.TaskId == id));
+			return View(m_tasks.FindTask(id));
 		}
 
 		//
 		// POST: /task/delete
 		[HttpPost]
 		public ActionResult Delete(int id, FormCollection formData) {
-			var task = s_tasks.Single(t => t.TaskId == id);
-			s_tasks.Remove(task);
+			m_tasks.DeleteTask(id);
 			return RedirectToAction("GetAll");
 		}
 	}
