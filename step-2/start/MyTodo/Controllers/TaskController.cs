@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MyTodo.Models;
 
 namespace MyTodo.Controllers {
 	public class TaskController : Controller {
+		readonly TasksRepository m_tasks = new TasksRepository();
 
-		TasksRepository m_tasks = new TasksRepository();
-	
 		//
 		// GET: /task
 		public ActionResult GetAll() {
@@ -34,10 +30,7 @@ namespace MyTodo.Controllers {
 		// POST: /task/edit
 		[HttpPost]
 		public ActionResult Edit(int id, Task updatedTask) {
-			var existingTask = m_tasks.FindTask(id);
-			existingTask.Title = updatedTask.Title;
-			existingTask.Description = updatedTask.Description;
-			existingTask.Completed = updatedTask.Completed;
+			m_tasks.UpdateTask(id, updatedTask);
 			return RedirectToAction("GetAll");
 		}
 

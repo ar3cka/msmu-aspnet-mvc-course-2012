@@ -1,36 +1,78 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace MyTodo.Models {
 	public class TasksRepository {
 
-		private static int s_counter = 1;
-
-		private static readonly List<Task> s_tasks = new List<Task> {
-			new Task {
-				TaskId = 1,
-				Title = "Зайти в магазин.",
-				Description = "Купить хлеб и зубную пасту.",
-				Completed = false
-			}
-		};
-
 		public IEnumerable<Task> FindUncompletedTasks() {
-			return s_tasks.Where(t => !t.Completed);
+			using (var connection = CreateConnection()) {
+				var command = connection.CreateCommand();
+				command.CommandText = "select * from task where completed = 0";
+
+				connection.Open();
+				var tasks = new List<Task>();
+				using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection)) {
+					while (reader.Read()) {
+						var task = new Task();
+						task.TaskId = reader.GetInt32(0);
+						task.Title = reader.GetString(1);
+						task.Description = reader.GetString(2);
+						task.Completed = reader.GetBoolean(3);
+						tasks.Add(task);
+					}		
+				}
+
+				return tasks;
+			}
 		}
 
 		public Task FindTask(int id) {
-			return s_tasks.Single(t => t.TaskId == id);
+			using (var connection = CreateConnection()) {
+				var command = connection.CreateCommand();
+				command.CommandText = "select * from task where taskid = @taskid";
+				command.Parameters.AddWithValue("@taskid", id);
+
+				connection.Open();
+				using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection)) {
+					if (reader.Read()) {
+						// TODO: Extract method for reading task and use in all task readering methods.
+						var task = new Task();
+						task.TaskId = reader.GetInt32(0);
+						task.Title = reader.GetString(1);
+						task.Description = reader.GetString(2);
+						task.Completed = reader.GetBoolean(3);
+						return task;
+					}
+					return null;
+				}
+			}
 		}
 
 		public void AddTask(Task task) {
-			task.TaskId = ++s_counter;
-			s_tasks.Add(task);
+			using (var connection = CreateConnection()) {
+				var command = connection.CreateCommand();
+				command.CommandText = "insert into task(title, description) values (@title, @description)";
+				command.Parameters.AddWithValue("@title", task.Title);
+				command.Parameters.AddWithValue("@description", task.Description);
+
+				connection.Open();
+				command.ExecuteNonQuery();
+			}
 		}
 
 		public void DeleteTask(int id) {
-			var task = s_tasks.Single(t => t.TaskId == id);
-			s_tasks.Remove(task);
+			throw new NotImplementedException();
+		}
+
+		public void UpdateTask(int id, Task task) {
+			throw new NotImplementedException();
+		}
+
+		private static SqlConnection CreateConnection() {
+			return new SqlConnection(ConfigurationManager.ConnectionStrings["MyTodoDatabase"].ConnectionString);
 		}
 	}
 }
