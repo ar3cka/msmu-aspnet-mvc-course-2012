@@ -1,48 +1,33 @@
 ﻿@model MyTodo.Models.Task
 
 @{
-	ViewBag.Title = "Edit task " + Model.TaskId + ".";
+	ViewBag.Title = "Edit task";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm()) {
 	@Html.ValidationSummary(true)
+	@Html.HiddenFor(model => model.TaskId)
 
-	<fieldset>
-		<legend>Task</legend>
+
+	@Html.LabelFor(model => model.Title)
+	@Html.EditorFor(model => model.Title)
+	@Html.ValidationMessageFor(model => model.Title)
+
     
-		@Html.HiddenFor(model => model.TaskId)
-    
-		<div class="editor-label">
-			@Html.LabelFor(model => model.Title)
-		</div>
-		<div class="editor-field">
-			@Html.EditorFor(model => model.Title)
-			@Html.ValidationMessageFor(model => model.Title)
-		</div>
-    
-		<div class="editor-label">
-			@Html.LabelFor(model => model.Description)
-		</div>
-		<div class="editor-field">
-			@Html.EditorFor(model => model.Description)
-			@Html.ValidationMessageFor(model => model.Description)
-		</div>
-    
-		<div class="editor-label">
-			@Html.LabelFor(model => model.Completed)
-		</div>
-		<div class="editor-field">
-			@Html.EditorFor(model => model.Completed)
-			@Html.ValidationMessageFor(model => model.Completed)
-		</div>
-    
-		<p>
-			<input type="submit" value="Save" />
-		</p>
-	</fieldset>
+	@Html.LabelFor(model => model.Description)
+	@Html.TextAreaFor(model => model.Description, new { rows = "3" })
+	@Html.ValidationMessageFor(model => model.Description)
+
+	<label class="checkbox">
+		@Html.CheckBoxFor(model => model.Completed, new { @class = "checkbox" })
+		@Html.LabelFor(model => model.Completed)
+		@Html.ValidationMessageFor(model => model.Completed)	
+	</label>
+	
+    <br/>
+	<p>
+		<input type="submit" value="Save" class="btn btn-primary" />
+		@Html.ActionLink("Back to List", "GetAll", null, new { @class = "btn btn-link" })
+	</p>
 }
-    
-<div>
-	@Html.ActionLink("Back to List", "GetAll")
-</div>
