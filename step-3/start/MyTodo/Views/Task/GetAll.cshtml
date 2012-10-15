@@ -1,53 +1,44 @@
 ﻿@model IEnumerable<MyTodo.Models.Task>
-
 @{
-    Layout = null;
+	ViewBag.Title = "My tasks.";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>GetAll</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Completed)
-            </th>
-            <th></th>
-        </tr>
+		
+<p>
+	@Html.ActionLink("Create New", "Create")
+</p>
+<table>
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Title)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Description)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Completed)
+		</th>
+		<th></th>
+	</tr>
     
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Completed)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.TaskId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.TaskId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.TaskId })
-            </td>
-        </tr>
-    }
+	@foreach (var item in Model) {
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Title)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Description)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Completed)
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id=item.TaskId }) |
+				@Html.ActionLink("Details", "Details", new { id=item.TaskId }) |
+				@Html.ActionLink("Delete", "Delete", new { id=item.TaskId })
+			</td>
+		</tr>
+	}
     
-    </table>
-</body>
-</html>
+</table>
+            	
