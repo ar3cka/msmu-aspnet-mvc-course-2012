@@ -2,5 +2,5 @@ TODO
 =========================================
 
  1. Implement Create action of TaskController class. 
- 1. Implement Delete action of TaskController class.
+ 2. Implement Delete action of TaskController class.
 
