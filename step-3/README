@@ -1,1 +1,7 @@
-README
+TODO
+=========================================
+
+ 1. Add user entity.
+ 2. Add user registration page.
+ 3. Add user authentification page.
+ 4. Authenticated user should only see their task.
