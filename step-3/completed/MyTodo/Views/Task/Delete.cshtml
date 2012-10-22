@@ -1,0 +1,29 @@
+﻿@model MyTodo.Models.Task
+
+@{
+	ViewBag.Title = "Delete task";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+	@Html.LabelFor(model => model.Title)
+	<span class="uneditable-input">@Model.Title</span>	
+</div>
+<div>
+	@Html.LabelFor(model => model.Description)
+    @Html.TextAreaFor(model => model.Description, new { @class = "uneditable-textarea", rows = "3", cols="20" })
+</div>
+<div>
+	<label class="checkbox">
+		@Html.DisplayFor(model => model.Completed, new { @class = "checkbox uneditable-input" })
+		@Html.LabelFor(model => model.Completed)
+	</label>
+</div>
+<br/>
+@using (Html.BeginForm()) {
+	<p>
+		<input type="submit" value="Delete" class="btn btn-primary" />
+		@Html.ActionLink("Back to List", "GetAll", null, new { @class = "btn btn-link" })
+	</p>
+}
