@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TasksRepository.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
