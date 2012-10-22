@@ -4,7 +4,7 @@ using MyTodo.Models;
 
 namespace MyTodo.Controllers {
 	public class TaskController : Controller {
-		readonly TasksRepository m_tasks = new TasksRepository();
+		private readonly TasksRepository m_tasks = new TasksRepository();
 
 		//
 		// GET: /task
