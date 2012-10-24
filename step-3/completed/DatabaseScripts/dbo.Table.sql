@@ -1,7 +1,0 @@
-﻿CREATE TABLE [dbo].Task
-(
-	[TaskId] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [Title] NVARCHAR(256) NOT NULL, 
-    [Description] NVARCHAR(1024) NOT NULL, 
-    [Completed] BIT NOT NULL DEFAULT 0
-)
