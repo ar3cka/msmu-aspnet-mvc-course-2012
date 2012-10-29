@@ -20,7 +20,7 @@ namespace MyTodo.Controllers {
 		// POST: /user/login
 		[HttpPost]
 		public ActionResult Login(string email, string password) {
-			var user = m_users.FindUserByEmail(email);
+			var user = m_users.FindUserByEmail(Email.Parse(email));
 			if (user == null || !user.Password.Equals(Password.CreateFromString(password))) {
 				ViewBag.ErrorMessage = "Неверный е-мейл или пароль.";
 				return View();
