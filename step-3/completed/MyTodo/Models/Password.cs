@@ -5,7 +5,7 @@ namespace MyTodo.Models {
 	public sealed class Password : IEquatable<Password> {
 		private readonly string m_hash;
 
-		private Password(string hash) {
+		public Password(string hash) {
 			if (hash == null) throw new ArgumentNullException("hash");
 			if (string.IsNullOrEmpty(hash)) throw new ArgumentException("String value can not be null or empty", "hash");
 

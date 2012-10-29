@@ -116,6 +116,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Email.cs" />
+    <Compile Include="Models\DatabaseConnection.cs" />
     <Compile Include="Models\Password.cs" />
     <Compile Include="Models\StringExtensions.cs" />
     <Compile Include="Models\Task.cs" />
@@ -151,6 +152,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

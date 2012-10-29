@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Войти";	
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+	
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage)) {
+	<div class="alert alert-danger">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		@ViewBag.ErrorMessage
+	</div>
+}
+
+<form method="POST" class="form-horizontal">
+	<div class="control-group">
+		<label class="control-label" for="email">Е-мейл</label>
+		<div class="controls">
+			<input type="text" id="email" name="email" placeholder="Электронная почта"/>		
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label" for="password">Пароль</label>
+		<div class="controls">
+			<input type="password" id="password" name="password" />		
+		</div>
+	</div>
+    
+	<div class="control-group">
+		<div class="controls">
+			<input type="submit" class="btn btn-primary" value="Войти"/>
+		</div>	
+	</div>
+</form>
+
+
+

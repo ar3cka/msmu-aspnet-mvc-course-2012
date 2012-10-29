@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace MyTodo.Models {
 	public class TasksRepository {
 
 		public IEnumerable<Task> FindUncompletedTasks() {
-			using (var connection = CreateConnection()) {
+			using (var connection = DatabaseConnection.CreateConnection()) {
 				var command = connection.CreateCommand();
 				command.CommandText = "select * from task where completed = 0";
 
@@ -25,7 +23,7 @@ namespace MyTodo.Models {
 		}
 
 		public Task FindTask(int id) {
-			using (var connection = CreateConnection()) {
+			using (var connection = DatabaseConnection.CreateConnection()) {
 				var command = connection.CreateCommand();
 				command.CommandText = "select * from task where taskid = @taskid";
 				command.Parameters.AddWithValue("@taskid", id);
@@ -38,7 +36,7 @@ namespace MyTodo.Models {
 		}
 
 		public void AddTask(Task task) {
-			using (var connection = CreateConnection()) {
+			using (var connection = DatabaseConnection.CreateConnection()) {
 				var command = connection.CreateCommand();
 				command.CommandText = "insert into task(title, description) values (@title, @description)";
 				command.Parameters.AddWithValue("@title", task.Title);
@@ -50,7 +48,7 @@ namespace MyTodo.Models {
 		}
 
 		public void DeleteTask(int id) {
-			using (var connection = CreateConnection()) {
+			using (var connection = DatabaseConnection.CreateConnection()) {
 				var command = connection.CreateCommand();
 				command.CommandText = "delete from task where taskid = @taskid";
 				command.Parameters.AddWithValue("@taskid", id);
@@ -61,7 +59,7 @@ namespace MyTodo.Models {
 		}
 
 		public void UpdateTask(int id, Task task) {
-			using (var connection = CreateConnection()) {
+			using (var connection = DatabaseConnection.CreateConnection()) {
 				var command = connection.CreateCommand();
 				command.CommandText = "update task set title = @title, description = @descr, completed = @cmpl where taskid = @taskid";
 				command.Parameters.AddWithValue("@taskid", id);
@@ -72,10 +70,6 @@ namespace MyTodo.Models {
 				connection.Open();
 				command.ExecuteNonQuery();
 			}
-		}
-
-		private static SqlConnection CreateConnection() {
-			return new SqlConnection(ConfigurationManager.ConnectionStrings["MyTodoDatabase"].ConnectionString);
 		}
 
 		private static Task ReadTaskFromRecord(IDataRecord record) {
