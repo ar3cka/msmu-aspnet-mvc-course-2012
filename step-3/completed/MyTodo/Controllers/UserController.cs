@@ -27,5 +27,11 @@ namespace MyTodo.Controllers {
 			}
 			return RedirectToAction("GetAll", "Task");
 		}
+
+		//
+		// GET: /user/register
+		public ActionResult Register() {
+			return View();
+		}
 	}
 }

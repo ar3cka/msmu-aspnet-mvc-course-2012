@@ -1,0 +1,42 @@
+﻿@model dynamic
+
+@{
+	ViewBag.Title = "Регистрация";
+	Layout = "../Shared/_Layout.cshtml";
+}
+
+<form method="POST" class="form-horizontal">
+    <div class="control-group">
+		<label class="control-label" for="username">Имя</label>
+		<div class="controls">
+			<input type="text" id="username" name="username" placeholder="Ваше Имя"/>		
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label" for="email">Е-мейл</label>
+		<div class="controls">
+			<input type="email" id="email" name="email" placeholder="Ваша электронная почта"/>		
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label" for="password">Пароль</label>
+		<div class="controls">
+			<input type="password" id="password" name="password" placeholder="Введите Ваш пароль" />		
+		</div>
+	</div>
+    
+    <div class="control-group">
+		<label class="control-label" for="password-confirm">Подтвердите пароль</label>
+		<div class="controls">
+			<input type="password" id="password-confirm" name="password-confirm" placeholder="Введите Ваш пароль еще раз" />		
+		</div>
+	</div>
+    
+	<div class="control-group">
+		<div class="controls">
+			<input type="submit" class="btn btn-primary" value="Зарегистрироваться"/>
+		</div>	
+	</div>
+</form>
