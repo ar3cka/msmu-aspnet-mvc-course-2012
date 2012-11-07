@@ -3,6 +3,8 @@ using System.Web.Mvc;
 using MyTodo.Models;
 
 namespace MyTodo.Controllers {
+
+    [Authorize]
 	public class TaskController : Controller {
 		private readonly TasksRepository m_tasks = new TasksRepository();
 
