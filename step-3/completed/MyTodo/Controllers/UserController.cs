@@ -33,7 +33,31 @@ namespace MyTodo.Controllers {
         //
         // GET: /user/register
         public ActionResult Register() {
-            return View();
+            return View(new RegistrationUserRequest());
+        }
+
+        //
+        // POST: /user/register
+        [HttpPost]
+        public ActionResult Register(RegistrationUserRequest request) {
+            if (ModelState.IsValid) {
+                var email = Email.Parse(request.Email);
+                var user = m_users.FindUserByEmail(email);
+                if (user != null) {
+                    ModelState.AddModelError("email", "Пользователь с таким адресом эоектронной почты уже зарегистрирован.");
+                }
+                else {
+                    user = new User();
+                    user.Email = email;
+                    user.Name = request.Username;
+                    user.Password = Password.CreateFromString(request.Password);
+                    m_users.Create(user);
+                }
+                
+                if (ModelState.IsValid) return RedirectToAction("Login");    
+            }
+
+            return View(request);
         }
     }
 }

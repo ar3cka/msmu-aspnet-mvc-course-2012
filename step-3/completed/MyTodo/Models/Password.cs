@@ -40,5 +40,9 @@ namespace MyTodo.Models {
 		public override int GetHashCode() {
 			return (m_hash != null ? m_hash.GetHashCode() : 0);
 		}
+
+        public override string ToString() {
+            return m_hash;
+        }
 	}
 }
