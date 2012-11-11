@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using MyTodo.Models;
 
 namespace MyTodo.Controllers {
@@ -27,6 +28,9 @@ namespace MyTodo.Controllers {
                 ViewBag.ErrorMessage = "Неверный е-мейл или пароль.";
                 return View();
             }
+            
+            FormsAuthentication.SetAuthCookie(request.Email, request.RememberPassword);
+            
             return RedirectToAction("GetAll", "Task");
         }
 

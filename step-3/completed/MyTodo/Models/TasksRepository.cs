@@ -4,12 +4,18 @@ using System.Data;
 
 namespace MyTodo.Models {
 	public class TasksRepository {
+	    private readonly User m_currentUser;
 
-		public IEnumerable<Task> FindUncompletedTasks() {
+	    public TasksRepository(User currentUser) {
+	        if (currentUser == null) throw new ArgumentNullException("currentUser");
+	        m_currentUser = currentUser;
+	    }
+
+	    public IEnumerable<Task> FindUncompletedTasks() {
 			using (var connection = DatabaseConnection.CreateConnection()) {
 				var command = connection.CreateCommand();
-				command.CommandText = "select * from task where completed = 0";
-
+				command.CommandText = "select * from task where completed = 0 and createdby = @userid";
+			    command.Parameters.AddWithValue("@userid", m_currentUser.UserId);
 				connection.Open();
 				var tasks = new List<Task>();
 				using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection)) {
@@ -25,8 +31,9 @@ namespace MyTodo.Models {
 		public Task FindTask(int id) {
 			using (var connection = DatabaseConnection.CreateConnection()) {
 				var command = connection.CreateCommand();
-				command.CommandText = "select * from task where taskid = @taskid";
+				command.CommandText = "select * from task where taskid = @taskid and createdby = @userid";
 				command.Parameters.AddWithValue("@taskid", id);
+                command.Parameters.AddWithValue("@userid", m_currentUser.UserId);
 
 				connection.Open();
 				using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection)) {
@@ -38,9 +45,10 @@ namespace MyTodo.Models {
 		public void AddTask(Task task) {
 			using (var connection = DatabaseConnection.CreateConnection()) {
 				var command = connection.CreateCommand();
-				command.CommandText = "insert into task(title, description) values (@title, @description)";
+				command.CommandText = "insert into task(title, description, createdby) values (@title, @description, @userid)";
 				command.Parameters.AddWithValue("@title", task.Title);
 				command.Parameters.AddWithValue("@description", task.Description);
+                command.Parameters.AddWithValue("@userid", m_currentUser.UserId);
 
 				connection.Open();
 				command.ExecuteNonQuery();
@@ -50,8 +58,9 @@ namespace MyTodo.Models {
 		public void DeleteTask(int id) {
 			using (var connection = DatabaseConnection.CreateConnection()) {
 				var command = connection.CreateCommand();
-				command.CommandText = "delete from task where taskid = @taskid";
+				command.CommandText = "delete from task where taskid = @taskid and createdby = @userid";
 				command.Parameters.AddWithValue("@taskid", id);
+                command.Parameters.AddWithValue("@userid", m_currentUser.UserId);
 
 				connection.Open();
 				command.ExecuteNonQuery();
@@ -61,11 +70,12 @@ namespace MyTodo.Models {
 		public void UpdateTask(int id, Task task) {
 			using (var connection = DatabaseConnection.CreateConnection()) {
 				var command = connection.CreateCommand();
-				command.CommandText = "update task set title = @title, description = @descr, completed = @cmpl where taskid = @taskid";
+				command.CommandText = "update task set title = @title, description = @descr, completed = @cmpl where taskid = @taskid and createdby = @userid";
 				command.Parameters.AddWithValue("@taskid", id);
 				command.Parameters.AddWithValue("@title", task.Title);
 				command.Parameters.AddWithValue("@descr", task.Description);
 				command.Parameters.AddWithValue("@cmpl", task.Completed);
+                command.Parameters.AddWithValue("@userid", m_currentUser.UserId);
 
 				connection.Open();
 				command.ExecuteNonQuery();
