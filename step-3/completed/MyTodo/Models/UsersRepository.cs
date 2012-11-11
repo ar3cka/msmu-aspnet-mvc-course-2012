@@ -24,16 +24,16 @@ namespace MyTodo.Models {
 			}
 		}
 
-	    public void Create(User user) {
-	        using (var connection = DatabaseConnection.CreateConnection()) {
-	            var command = connection.CreateCommand();
-                command.CommandText = "INSERT INTO [dbo].[user](email, name, password) VALUES (@email, @name, @password)";
-	            command.Parameters.AddWithValue("@email", user.Email.ToString());
-	            command.Parameters.AddWithValue("@name", user.Name);
-	            command.Parameters.AddWithValue("@password", user.Password.ToString());
-                connection.Open();
-	            command.ExecuteNonQuery();
-	        }
-	    }
+		public void Create(User user) {
+			using (var connection = DatabaseConnection.CreateConnection()) {
+				var command = connection.CreateCommand();
+				command.CommandText = "INSERT INTO [dbo].[user](email, name, password) VALUES (@email, @name, @password)";
+				command.Parameters.AddWithValue("@email", user.Email.ToString());
+				command.Parameters.AddWithValue("@name", user.Name);
+				command.Parameters.AddWithValue("@password", user.Password.ToString());
+				connection.Open();
+				command.ExecuteNonQuery();
+			}
+		}
 	}
 }

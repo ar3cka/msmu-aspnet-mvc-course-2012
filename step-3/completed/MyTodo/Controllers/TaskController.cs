@@ -4,16 +4,16 @@ using MyTodo.Models;
 
 namespace MyTodo.Controllers {
 
-    [Authorize]
+	[Authorize]
 	public class TaskController : ApplicationController {
-        private TasksRepository m_tasks;
+		private TasksRepository m_tasks;
 
-        protected override void OnActionExecuting(ActionExecutingContext filterContext) {
-            base.OnActionExecuting(filterContext);
-            m_tasks = new TasksRepository(CurrentUser);
-        }
+		protected override void OnActionExecuting(ActionExecutingContext filterContext) {
+			base.OnActionExecuting(filterContext);
+			m_tasks = new TasksRepository(CurrentUser);
+		}
 
-        //
+		//
 		// GET: /task
 		public ActionResult GetAll() {
 			return View(m_tasks.FindUncompletedTasks());
