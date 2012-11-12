@@ -35,6 +35,13 @@ namespace MyTodo.Controllers {
 		}
 
 		//
+		// GET: /user/logout
+		public ActionResult Logout() {
+			FormsAuthentication.SignOut();
+			return RedirectToAction("Login");
+		}
+
+		//
 		// GET: /user/register
 		public ActionResult Register() {
 			return View(new RegistrationUserRequest());
@@ -47,18 +54,16 @@ namespace MyTodo.Controllers {
 			if (ModelState.IsValid) {
 				var email = Email.Parse(request.Email);
 				var user = m_users.FindUserByEmail(email);
-				if (user != null) {
-					ModelState.AddModelError("email", "Пользователь с таким адресом эоектронной почты уже зарегистрирован.");
-				}
-				else {
+				if (user == null) {
 					user = new User();
 					user.Email = email;
 					user.Name = request.Username;
 					user.Password = Password.CreateFromString(request.Password);
 					m_users.Create(user);
+					return RedirectToAction("Login");
 				}
 
-				if (ModelState.IsValid) return RedirectToAction("Login");
+				ModelState.AddModelError("email", "Пользователь с таким адресом эоектронной почты уже зарегистрирован.");
 			}
 
 			return View(request);
