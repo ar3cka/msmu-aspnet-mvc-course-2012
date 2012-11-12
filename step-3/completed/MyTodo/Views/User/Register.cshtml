@@ -6,31 +6,31 @@
 }
 
 <form method="POST" class="form-horizontal">
-    <div class="control-group">
-		<label class="control-label" for="username">Имя</label>
+	<div class="control-group">
+		@Html.LabelFor(m => m.Username, new { @class = "control-label" })
 		<div class="controls">
-			<input type="text" id="username" name="username" placeholder="Ваше Имя"/>		
+			@Html.TextBoxFor(m => m.Username)
 		</div>
 	</div>
 
 	<div class="control-group">
-		<label class="control-label" for="email">Е-мейл</label>
+		@Html.LabelFor(m => m.Email, new { @class = "control-label" })
 		<div class="controls">
-			<input type="email" id="email" name="email" placeholder="Ваша электронная почта"/>		
+			@Html.EditorFor(m => m.Email)
 		</div>
 	</div>
 
 	<div class="control-group">
-		<label class="control-label" for="password">Пароль</label>
-		<div class="controls">
-			<input type="password" id="password" name="password" placeholder="Введите Ваш пароль" />		
+		@Html.LabelFor(m => m.Password, new { @class = "control-label" })
+		<div class="controls">  
+			@Html.PasswordFor(m => m.Password)
 		</div>
 	</div>
     
     <div class="control-group">
-		<label class="control-label" for="confirmedPassword">Подтвердите пароль</label>
+		@Html.LabelFor(m => m.ConfirmedPassword, new { @class = "control-label" })
 		<div class="controls">
-			<input type="password" id="confirmedPassword" name="confirmedPassword" placeholder="Введите Ваш пароль еще раз" />		
+            @Html.PasswordFor(m => m.ConfirmedPassword)		
 		</div>
 	</div>
     

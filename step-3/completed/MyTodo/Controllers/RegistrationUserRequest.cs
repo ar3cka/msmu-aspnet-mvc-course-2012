@@ -2,16 +2,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyTodo.Controllers {
 	public class RegistrationUserRequest {
-		[Required]
+		[Required, Display(Name = "Имя")]
 		public string Username { get; set; }
 
-		[Required, EmailAddress]
+		[Required, EmailAddress, Display(Name = "Электронной почта")]
 		public string Email { get; set; }
 
-		[Required, DataType(DataType.Password)]
+		[Required, DataType(DataType.Password), Display(Name = "Пароль")]
 		public string Password { get; set; }
 
-		[Required, Compare("Password"), DataType(DataType.Password)]
+		[Required, Compare("Password"), DataType(DataType.Password), Display(Name = "Повторите пароль")]
 		public string ConfirmedPassword { get; set; }
 	}
 }
