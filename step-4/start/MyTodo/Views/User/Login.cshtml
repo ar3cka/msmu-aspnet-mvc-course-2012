@@ -1,0 +1,48 @@
+﻿@model MyTodo.Controllers.AuthenticationRequest
+@{
+    ViewBag.Title = "Войти";	
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+	
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage)) {
+	<div class="alert alert-danger">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		@ViewBag.ErrorMessage
+	</div>
+}
+
+<form method="POST" class="form-horizontal">
+	<div class="control-group">
+		@Html.LabelFor(m => m.Email, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(m => m.Email)	
+		</div>
+	</div>
+
+	<div class="control-group">
+		@Html.LabelFor(m => m.Password, new { @class = "control-label" })
+		<div class="controls">
+			@Html.PasswordFor(m => m.Password)
+		</div>
+	</div>
+        
+	<div>
+		<div class="controls">
+			<label class="checkbox">
+				@Html.CheckBoxFor(model => model.RememberPassword, new { @class = "checkbox" })
+				@Html.LabelFor(model => model.RememberPassword)
+			</label>
+		</div>
+	</div>
+    <br/>
+	<div class="control-group">
+		<div class="controls">
+			<input type="submit" class="btn btn-primary" value="Войти"/>
+			@Html.ActionLink("Зарегистрироваться", "Register", null, new { @class = "btn" })
+		</div>	
+	</div>
+</form>
+
+
+

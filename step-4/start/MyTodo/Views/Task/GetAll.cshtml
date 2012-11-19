@@ -1,0 +1,68 @@
+﻿@model IEnumerable<MyTodo.Models.Task>
+@{
+	ViewBag.Title = "My tasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+	<a href="#createTaskWindow" role="button" class="btn" data-toggle="modal">Create Task</a>
+</p>
+
+<div id="createTaskWindow" class="modal hide fade" role="dialog" aria-labelledby="createTaskWindowLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+		<h3 id="createTaskWindowLabel">Create new task</h3>
+	</div>
+	<div class="modal-body">
+		<form class="modal-form">
+			<label for="taskTitle">Title</label>
+			<input type="text" id="taskTitle" class="input-xlarge"/>
+			<label for="taskDescription">Description</label>
+			<textarea id="taskDescription" rows="3" class="input-xlarge"></textarea>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		<button class="btn btn-primary" data-bind="click: createTask">Create</button>
+	</div>
+</div>
+    
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Title)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Description)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Completed)
+		</th>
+		<th></th>
+	</tr>
+    
+	@foreach (var item in Model) {
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Title)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Description)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Completed)
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id = item.TaskId }) |
+				@Html.ActionLink("Details", "Details", new { id = item.TaskId }) |
+				@Html.ActionLink("Delete", "Delete", new { id = item.TaskId })
+			</td>
+		</tr>
+	}
+</table>
+
+@section scripts {
+    <script src="@Scripts.Url("~/assets/js/libs/knockout-2.2.0.js")" type="text/javascript"></script>
+    <script src="@Scripts.Url("~/assets/js/pages/tasks-page.js")" type="text/javascript"></script>
+}
+            	

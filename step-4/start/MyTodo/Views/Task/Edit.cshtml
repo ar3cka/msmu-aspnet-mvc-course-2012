@@ -1,0 +1,33 @@
+﻿@model MyTodo.Models.Task
+
+@{
+	ViewBag.Title = "Edit task";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm()) {
+	@Html.ValidationSummary(true)
+	@Html.HiddenFor(model => model.TaskId)
+
+
+	@Html.LabelFor(model => model.Title)
+	@Html.EditorFor(model => model.Title)
+	@Html.ValidationMessageFor(model => model.Title)
+
+    
+	@Html.LabelFor(model => model.Description)
+	@Html.TextAreaFor(model => model.Description, new { rows = "3" })
+	@Html.ValidationMessageFor(model => model.Description)
+
+	<label class="checkbox">
+		@Html.CheckBoxFor(model => model.Completed, new { @class = "checkbox" })
+		@Html.LabelFor(model => model.Completed)
+		@Html.ValidationMessageFor(model => model.Completed)	
+	</label>
+	
+    <br/>
+	<p>
+		<input type="submit" value="Save" class="btn btn-primary" />
+		@Html.ActionLink("Back to List", "GetAll", null, new { @class = "btn btn-link" })
+	</p>
+}
