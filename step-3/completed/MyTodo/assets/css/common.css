@@ -1,0 +1,11 @@
+﻿body {
+    padding: 60px;
+}
+
+#logout {
+    margin-right: 5px;
+}
+
+    #logout a {
+        text-decoration: underline;
+    }
