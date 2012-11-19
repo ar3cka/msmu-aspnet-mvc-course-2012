@@ -138,11 +138,12 @@
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\img\glyphicons-halflings-white.png" />
     <Content Include="assets\img\glyphicons-halflings.png" />
-    <Content Include="assets\js\bootstrap.js" />
-    <Content Include="assets\js\bootstrap.min.js" />
-    <None Include="assets\js\jquery-1.8.2.intellisense.js" />
-    <Content Include="assets\js\jquery-1.8.2.js" />
-    <Content Include="assets\js\jquery-1.8.2.min.js" />
+    <Content Include="assets\js\libs\bootstrap.js" />
+    <Content Include="assets\js\libs\bootstrap.min.js" />
+    <None Include="assets\js\libs\jquery-1.8.2.intellisense.js" />
+    <Content Include="assets\js\libs\jquery-1.8.2.js" />
+    <Content Include="assets\js\libs\jquery-1.8.2.min.js" />
+    <Content Include="assets\js\pages\tasks-page.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
