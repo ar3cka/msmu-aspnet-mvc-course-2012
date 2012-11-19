@@ -10,6 +10,7 @@
 		@Html.LabelFor(m => m.Username, new { @class = "control-label" })
 		<div class="controls">
 			@Html.TextBoxFor(m => m.Username)
+            @Html.ValidationMessageFor(m => m.Username)
 		</div>
 	</div>
 
@@ -17,6 +18,7 @@
 		@Html.LabelFor(m => m.Email, new { @class = "control-label" })
 		<div class="controls">
 			@Html.EditorFor(m => m.Email)
+            @Html.ValidationMessageFor(m => m.Email)
 		</div>
 	</div>
 
@@ -24,13 +26,15 @@
 		@Html.LabelFor(m => m.Password, new { @class = "control-label" })
 		<div class="controls">  
 			@Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
 		</div>
 	</div>
     
     <div class="control-group">
 		@Html.LabelFor(m => m.ConfirmedPassword, new { @class = "control-label" })
 		<div class="controls">
-            @Html.PasswordFor(m => m.ConfirmedPassword)		
+			@Html.PasswordFor(m => m.ConfirmedPassword)	
+            @Html.ValidationMessageFor(m => m.ConfirmedPassword)	
 		</div>
 	</div>
     

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyTodo.Controllers {
 	public class RegistrationUserRequest {
-		[Required, Display(Name = "Имя")]
+		[Required(ErrorMessage = "Укажите Ваше имя."), Display(Name = "Имя")]
 		public string Username { get; set; }
 
 		[Required, EmailAddress, Display(Name = "Электронной почта")]
