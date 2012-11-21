@@ -4,36 +4,44 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using MyTodo.Models;
 
-namespace MyTodo.Controllers
-{
-    public class TaskController : ApiController
-    {
-        // GET api/task
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+namespace MyTodo.Controllers {
 
-        // GET api/task/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+	[Authorize]
+	public class TaskController : ApiController {
+		private TasksRepository m_task;
 
-        // POST api/task
-        public void Post([FromBody]string value)
-        {
-        }
+		protected override void Initialize(System.Web.Http.Controllers.HttpControllerContext controllerContext) {
+			base.Initialize(controllerContext);
+			var users = new UsersRepository();
+			var user = users.FindUserByEmail(Email.Parse(User.Identity.Name));
+			m_task = new TasksRepository(user);
+		}
 
-        // PUT api/task/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+		// GET api/task
+		public IEnumerable<Task> Get() {
+			return m_task.FindUncompletedTasks();
+		}
 
-        // DELETE api/task/5
-        public void Delete(int id)
-        {
-        }
-    }
+		// GET api/task/5
+		public Task Get(int id) {
+			return m_task.FindTask(id);
+		}
+
+		// POST api/task
+		public void Post([FromBody] string value) {
+			throw new NotImplementedException();
+		}
+
+		// PUT api/task/5
+		public void Put(int id, [FromBody] string value) {
+			throw new NotImplementedException();
+		}
+
+		// DELETE api/task/5
+		public void Delete(int id) {
+			m_task.DeleteTask(id);
+		}
+	}
 }

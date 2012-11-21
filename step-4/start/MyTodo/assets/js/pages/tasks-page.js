@@ -9,6 +9,10 @@
     function TasksPageView() {
         this.selectedTask = new Task;
         this.createTask = function () {
+            $.get("api/task/1", function () {
+                alert("OK");
+            });
+            
             alert("Task title: " + this.selectedTask.title + ", description " + this.selectedTask.description);
         };
     }
