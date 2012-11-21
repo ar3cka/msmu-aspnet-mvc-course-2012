@@ -1,15 +1,15 @@
 ﻿(function($, ko) {
 
+    function Task() {
+        this.title = ko.ob("");
+        this.description = ko.ob("");
+        this.completed = ko.ob(false);
+    }
+
     function TasksPageView() {
-
-        var $createTaskWindow = $("#createTaskWindow");
-
-        $(".modal-form").on("submit", function() {
-        });
-
-        this.createTask = function() {
-            alert("Create Task action.");
-            $createTaskWindow.modal("hide");
+        this.selectedTask = new Task;
+        this.createTask = function () {
+            alert("Task title: " + this.selectedTask.title + ", description " + this.selectedTask.description);
         };
     }
 

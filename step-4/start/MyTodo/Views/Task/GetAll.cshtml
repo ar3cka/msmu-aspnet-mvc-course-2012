@@ -14,11 +14,11 @@
 		<h3 id="createTaskWindowLabel">Create new task</h3>
 	</div>
 	<div class="modal-body">
-		<form class="modal-form">
+		<form class="modal-form" data-bind="with: selectedTask">
 			<label for="taskTitle">Title</label>
-			<input type="text" id="taskTitle" class="input-xlarge"/>
+			<input type="text" id="taskTitle" class="input-xlarge" data-bind="value: title"/>
 			<label for="taskDescription">Description</label>
-			<textarea id="taskDescription" rows="3" class="input-xlarge"></textarea>
+			<textarea id="taskDescription" rows="3" class="input-xlarge" data-bind="value: description"></textarea>
 		</form>
 	</div>
 	<div class="modal-footer">
