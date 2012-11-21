@@ -31,7 +31,7 @@ namespace MyTodo.Controllers {
 
 			FormsAuthentication.SetAuthCookie(request.Email, request.RememberPassword);
 
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction("Tasks", "Home");
 		}
 
 		//

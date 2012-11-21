@@ -1,72 +1,39 @@
 ﻿using System;
-using System.Web.Mvc;
-using MyTodo.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 
-namespace MyTodo.Controllers {
+namespace MyTodo.Controllers
+{
+    public class TaskController : ApiController
+    {
+        // GET api/task
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
 
-	[Authorize]
-	public class TaskController : ApplicationController {
-		private TasksRepository m_tasks;
+        // GET api/task/5
+        public string Get(int id)
+        {
+            return "value";
+        }
 
-		protected override void OnActionExecuting(ActionExecutingContext filterContext) {
-			base.OnActionExecuting(filterContext);
-			m_tasks = new TasksRepository(CurrentUser);
-		}
+        // POST api/task
+        public void Post([FromBody]string value)
+        {
+        }
 
-		//
-		// GET: /task
-		public ActionResult GetAll() {
-			return View(m_tasks.FindUncompletedTasks());
-		}
+        // PUT api/task/5
+        public void Put(int id, [FromBody]string value)
+        {
+        }
 
-		//
-		// GET /task/details
-		public ActionResult Details(int id) {
-			var task = m_tasks.FindTask(id);
-			return View(task);
-		}
-
-		//
-		// GET: /task/edit
-		public ActionResult Edit(int id) {
-			var task = m_tasks.FindTask(id);
-			return View(task);
-		}
-
-		//
-		// POST: /task/edit
-		[HttpPost]
-		public ActionResult Edit(int id, Task updatedTask) {
-			m_tasks.UpdateTask(id, updatedTask);
-			return RedirectToAction("GetAll");
-		}
-
-		//
-		// GET: /task/create
-		public ActionResult Create() {
-			return View();
-		}
-
-		//
-		// POST: /task/create
-		[HttpPost]
-		public ActionResult Create(Task task) {
-			m_tasks.AddTask(task);
-			return RedirectToAction("GetAll");
-		}
-
-		//
-		// GET: /task/delete
-		public ActionResult Delete(int id) {
-			return View(m_tasks.FindTask(id));
-		}
-
-		//
-		// POST: /task/delete
-		[HttpPost]
-		public ActionResult Delete(int id, FormCollection formData) {
-			m_tasks.DeleteTask(id);
-			return RedirectToAction("GetAll");
-		}
-	}
+        // DELETE api/task/5
+        public void Delete(int id)
+        {
+        }
+    }
 }

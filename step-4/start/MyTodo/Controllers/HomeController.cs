@@ -17,7 +17,7 @@ namespace MyTodo.Controllers {
 
 		//
 		// GET: /Home/
-		public ActionResult Index() {
+		public ActionResult Tasks() {
 			return View(m_tasks.FindUncompletedTasks());
 		}
 	}
