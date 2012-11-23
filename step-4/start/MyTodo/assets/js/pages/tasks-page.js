@@ -1,4 +1,5 @@
 ﻿/// <reference path="../libs/knockout-2.2.0.js" />
+/// <reference path="../libs/jquery-1.8.2.intellisense.js" />
 
 (function ($, ko) {
 
@@ -18,15 +19,17 @@
         };
 
         Task.loadAll = function () {
-            var t1 = new Task;
-            t1.title("1");
-            t1.description("1");
-            
-            var t2 = new Task;
-            t2.title("2");
-            t2.description("2");
+            var tasks = [];
+            $.getJSON("api/task", function (data) {
+                $.each(data, function (index, item) {
+                    var task = new Task;
+                    task.title(item.title);
+                    task.description(item.description);
+                    tasks.push(task);
+                });
+            });
 
-            return [t1, t2];
+            return tasks;
         };
     }
 
@@ -35,7 +38,7 @@
         self.selectedTask = ko.observable(new Task);
         self.tasks = ko.observableArray([]);
 
-        self.createTask = function () {
+        self.createTask = function (data, event) {
             var task = ko.utils.unwrapObservable(self.selectedTask());
             task.create();
             self.tasks.push(task);
