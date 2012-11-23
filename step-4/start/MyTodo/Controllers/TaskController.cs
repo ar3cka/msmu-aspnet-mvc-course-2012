@@ -30,8 +30,10 @@ namespace MyTodo.Controllers {
 		}
 
 		// POST api/task
-		public void Post([FromBody] string value) {
-			throw new NotImplementedException();
+		public HttpResponseMessage Post(Task value) {
+			var response = Request.CreateResponse(HttpStatusCode.Created);
+			response.Headers.Location = new Uri(Url.Route(null, new {id = 123}));
+			return response;
 		}
 
 		// PUT api/task/5
