@@ -10,6 +10,12 @@
         self.completed = ko.observable(false);
 
         self.create = function () {
+            self.TaskId = 234;
+            self.completed(true);
+            var data = ko.toJSON(self);
+            $.post("api/task", data, function (result) {
+                
+            });
         };
         
         self.update = function () {
@@ -18,18 +24,17 @@
         self.delete = function () {
         };
 
-        Task.loadAll = function () {
-            var tasks = [];
+        Task.loadAll = function (taskLoadedCallback) {
             $.getJSON("api/task", function (data) {
+                var tasks = [];
                 $.each(data, function (index, item) {
                     var task = new Task;
-                    task.title(item.title);
-                    task.description(item.description);
+                    task.title(item.Title);
+                    task.description(item.Description);
                     tasks.push(task);
                 });
+                taskLoadedCallback(tasks);
             });
-
-            return tasks;
         };
     }
 
@@ -46,7 +51,9 @@
         };
 
         self.refreshTaskList = function () {
-            self.tasks(Task.loadAll());
+            Task.loadAll(function (tasks) {
+                self.tasks(tasks);
+            });
         };
     }
 
