@@ -5,16 +5,18 @@
 
     function Task() {
         var self = this;
+        self.id = ko.observable(null);
         self.title = ko.observable("");
         self.description = ko.observable("");
         self.completed = ko.observable(false);
 
         self.create = function () {
-            self.TaskId = 234;
-            self.completed(true);
-            var data = ko.toJSON(self);
+            var data = {
+                Title: self.title(),
+                Description: self.description()
+            };
             $.post("api/task", data, function (result) {
-                
+                self.id(result);
             });
         };
         
@@ -29,6 +31,7 @@
                 var tasks = [];
                 $.each(data, function (index, item) {
                     var task = new Task;
+                    task.id(item.TaskId);
                     task.title(item.Title);
                     task.description(item.Description);
                     tasks.push(task);

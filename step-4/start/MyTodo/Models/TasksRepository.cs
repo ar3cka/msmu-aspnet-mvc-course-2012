@@ -42,16 +42,20 @@ namespace MyTodo.Models {
 			}
 		}
 
-		public void AddTask(Task task) {
+		public int AddTask(Task task) {
 			using (var connection = DatabaseConnection.CreateConnection()) {
 				var command = connection.CreateCommand();
-				command.CommandText = "insert into task(title, description, createdby) values (@title, @description, @userid)";
+				command.CommandText = "add_task";
+				command.CommandType = CommandType.StoredProcedure;
 				command.Parameters.AddWithValue("@title", task.Title);
 				command.Parameters.AddWithValue("@description", task.Description);
-                command.Parameters.AddWithValue("@userid", m_currentUser.UserId);
+				command.Parameters.AddWithValue("@created_by", m_currentUser.UserId);
+				command.Parameters.AddWithValue("@task_id", -1).Direction = ParameterDirection.Output;
 
 				connection.Open();
 				command.ExecuteNonQuery();
+
+				return (int) command.Parameters["@task_id"].Value;
 			}
 		}
 

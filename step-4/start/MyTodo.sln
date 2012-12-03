@@ -5,6 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTodo", "MyTodo\MyTodo.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseScripts", "DatabaseScripts", "{3EF6E0F5-1F91-472F-A6CB-EA74A9DA89F7}"
 	ProjectSection(SolutionItems) = preProject
+		DatabaseScripts\dbo.add_task.sql = DatabaseScripts\dbo.add_task.sql
 		DatabaseScripts\dbo.Task.sql = DatabaseScripts\dbo.Task.sql
 		DatabaseScripts\dbo.User.sql = DatabaseScripts\dbo.User.sql
 	EndProjectSection

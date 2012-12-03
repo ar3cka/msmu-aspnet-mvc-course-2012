@@ -30,10 +30,9 @@ namespace MyTodo.Controllers {
 		}
 
 		// POST api/task
-		public HttpResponseMessage Post(Task value) {
-			var response = Request.CreateResponse(HttpStatusCode.Created);
-			response.Headers.Location = new Uri(Url.Route(null, new {id = 123}));
-			return response;
+		public int Post(Task task) {
+			var id = m_task.AddTask(task);
+			return id;
 		}
 
 		// PUT api/task/5
